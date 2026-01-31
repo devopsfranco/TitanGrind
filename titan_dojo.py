@@ -57,11 +57,14 @@ def engage_titan_grind():
     import tempfile
     
     # We move to a temporary directory to avoid the FileExistsError.
-    repo_path = os.path.abspath("/Users/franco/dev/Untitled")
+    repo_path = os.getcwd()
     safe_dir = tempfile.mkdtemp()
-    os.chdir(safe_dir)
-    print(f"    - Execution moved to safe workspace: {safe_dir}")
+    # os.chdir(safe_dir) # Do not move yet, we need to be in the repo to copy it or let LeanDoJo handle it?
+    # Actually, LeanDoJo.from_path takes the path. Let's keep the logic but fix the path.
+    print(f"    - Repo path: {repo_path}")
+    print(f"    - Execution workspace (temp): {safe_dir}")
 
+    # Ensure we don't break the path resolution
     repo = LeanGitRepo.from_path(repo_path)
     
     # 2. Define the Targets (The Gaps from your Lean file)
