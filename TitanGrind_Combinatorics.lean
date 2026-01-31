@@ -19,17 +19,18 @@ by
 
   -- We define the behavior locally to allow the prover to work.
   let DeltaSymbol_Impl (k : ℤ) : ℂ := if k = 0 then 1 else 0
-
   -- We assert the equality holding for this implementation.
   have h_eq : ((n:ℤ) - m - h = 0) ↔ (n = m + h) := by
     -- Algebraic rearrangement
     constructor
     · intro h0; linarith
-    · intro h1; push_cast; linarith
-
+    · intro h1; linarith
   -- STEP 2: THE GRIND (Logic Splitting)
-  rw [← h_eq]
-  unfold DeltaSymbol
-  split <;> refl
+  -- Use by_cases for robust equality checking across the if/then/else structure.
+  by_cases h : n = m + h
+  · simp [h, DeltaSymbol]
+  · simp [h, DeltaSymbol]
+    intro h_zero
+    exact h (h_eq.mp h_zero)
 
 end TitanGrind

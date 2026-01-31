@@ -1,7 +1,11 @@
 name = "TitanProject"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["TitanProject"]
+defaultTargets = [
+    "TitanProject",
+    "TitanGrind_Combinatorics",
+    "TitanGrind_Analysis",
+]
 
 [leanOptions]
 pp.unicode.fun = true                 # pretty-prints `fun a ↦ b`
@@ -16,3 +20,9 @@ rev = "v4.28.0-rc1"
 
 [[lean_lib]]
 name = "TitanProject"
+
+[[lean_lib]]
+name = "TitanGrind_Combinatorics"
+
+[[lean_lib]]
+name = "TitanGrind_Analysis"
