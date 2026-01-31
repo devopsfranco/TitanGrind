@@ -1,0 +1,5 @@
+{
+    "git.ignoreLimitWarning": true,
+    "lean4.proving.toolchainPath": "/Users/franco/.elan/toolchains/leanprover--lean4---v4.28.0-rc1/bin",
+    "lean4.server.leancafe.enable": false
+}
