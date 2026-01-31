@@ -54,26 +54,26 @@ def engage_titan_grind():
     # 1. Initialize the Environment
     print("\n[*] TITAN PROTOCOL: ENGAGING LEAN DOJO...")
     import os
-    import shutil
     import tempfile
     
-    # We use a temporary directory to avoid the [Errno 17] FileExistsError 
-    # which occurs when LeanGitRepo tries to use the local 'Untitled' directory.
-    tmp_dir = tempfile.mkdtemp()
-    # We use LeanGitRepo.from_path for the local project.
-    repo_path = "/Users/franco/dev/Untitled"
+    # We move to a temporary directory to avoid the FileExistsError.
+    repo_path = os.path.abspath("/Users/franco/dev/Untitled")
+    safe_dir = tempfile.mkdtemp()
+    os.chdir(safe_dir)
+    print(f"    - Execution moved to safe workspace: {safe_dir}")
+
     repo = LeanGitRepo.from_path(repo_path)
     
     # 2. Define the Targets (The Gaps from your Lean file)
     targets = [
         # GAP 1: The Combinatorics
-        ("Untitled.lean", "TitanGap.Lemma_Geometric_Expansion"),
+        ("TitanProject/TitanGapBridger.lean", "TitanGap.Lemma_Geometric_Expansion"),
         
         # GAP 2: The Duality (The Boss)
-        ("Untitled.lean", "TitanGap.Lemma_Kuznetsov_Transfer"),
+        ("TitanProject/TitanGapBridger.lean", "TitanGap.Lemma_Kuznetsov_Transfer"),
         
         # GAP 3: The Analysis (The Decay)
-        ("Untitled.lean", "TitanGap.Lemma_Spectral_Bound")
+        ("TitanProject/TitanGapBridger.lean", "TitanGap.Lemma_Spectral_Bound")
     ]
     
     # 3. The Grind Loop

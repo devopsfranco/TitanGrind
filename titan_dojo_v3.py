@@ -14,8 +14,13 @@ def engage_precision_grind():
     import os
     import tempfile
     
-    # We use LeanGitRepo.from_path for the local project.
-    repo_path = "/Users/franco/dev/Untitled"
+    # We move to a temporary directory to avoid the FileExistsError.
+    # LeanDojo tries to copy the project to a folder named 'Untitled' in the CWD.
+    repo_path = os.path.abspath("/Users/franco/dev/Untitled")
+    safe_dir = tempfile.mkdtemp()
+    os.chdir(safe_dir)
+    print(f"    - Execution moved to safe workspace: {safe_dir}")
+    
     repo = LeanGitRepo.from_path(repo_path)
     
     # 2. Define the Precision Target

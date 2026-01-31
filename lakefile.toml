@@ -5,6 +5,7 @@ defaultTargets = [
     "TitanProject",
     "TitanGrind_Combinatorics",
     "TitanGrind_Analysis",
+    "TitanGrind_Spectral",
 ]
 
 [leanOptions]
@@ -26,3 +27,6 @@ name = "TitanGrind_Combinatorics"
 
 [[lean_lib]]
 name = "TitanGrind_Analysis"
+
+[[lean_lib]]
+name = "TitanGrind_Spectral"
