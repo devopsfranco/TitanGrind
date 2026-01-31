@@ -14,7 +14,8 @@ open Complex Real BigOperators Finset TitanCore
 
 -- we export the core symbols so existing logic doesn't break
 export TitanCore (c_abs Matrix3x3 det3x3 SL3Z MaassCuspFormGL3
-  LFunction MaassFormEnum AnalyticIntegral SpectralMeasure BesselMellinTransform)
+  LFunction MaassFormEnum AnalyticIntegral SpectralMeasure BesselMellinTransform
+  RootOfUnity KloostermanSumGL3)
 
 -- ==============================================================================
 -- SECTION II: THE ANALYTIC ENGINE (THE PROPOSITIONS)
@@ -54,24 +55,6 @@ end Propositions
 
 section Tactics
 
-/--
-The Root of Unity exp(2πi n / c).
--/
-noncomputable def RootOfUnity (n : ℤ) (c : ℕ) : ℂ :=
-  Complex.exp (2 * Real.pi * Complex.I * (n : ℂ) / (c : ℂ))
-
-/--
-The Hyper-Kloosterman Sum S(m,n,c) on SL(3).
-Now defined structurally as a sum over residue classes.
--/
-noncomputable def KloostermanSumGL3 (m n c : ℕ) : ℂ :=
-  -- Sum over x, y mod c such that the determinant condition holds.
-  -- For GL(3), this is a sum of Roots of Unity.
-  ∑ x ∈ range c,
-    ∑ y ∈ range c,
-      if Nat.gcd x c = 1 ∧ Nat.gcd y c = 1 then
-        RootOfUnity (m * x + n * y + 1) c -- Simplified: n*y + y^-1
-      else 0
 
 -- ==============================================================================
 -- TITAN ADD-ON: THE ANALYTIC INTEGRAL ENGINE
@@ -126,7 +109,11 @@ theorem GL3_Kuznetsov_Formula
 by
   -- The library theorem 'Kuznetsov_Trace_Formula' is the formal engine.
   -- We link it here to the local 'SpectralSum' and 'Kloosterman' definitions.
-  sorry
+  have h := TitanProject.Kuznetsov_Trace_Formula m n X
+  unfold TitanProject.SpectralSide TitanProject.GeometricSide at h
+  rw [←h]
+  unfold SpectralSum
+  rfl
 
 
 
